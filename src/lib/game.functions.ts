@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 
 const QUESTION_COUNT = 10;
-const STEP = 15;
+const STEP = 18;
 // Bu süre içinde iki takım da doğru bilirse "aynı anda" sayılır: halat yerinde kalır, kimse puan almaz.
 const SAME_TIME_MS = 2000;
 const WAIT_OTHER_MS = 600;
