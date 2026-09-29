@@ -238,10 +238,18 @@ function GameView({ code, playerId }: { code: string; playerId: string }) {
 
   const canAnswer = data.status === "PLAYING" && !data.resolved && correctAnswer === null;
 
-  // Uzun şıklarda yazı otomatik küçülür ki her şey kaydırmasız tek ekrana sığsın
+   // Uzun şıklarda yazı otomatik küçülür ki her şey kaydırmasız tek ekrana sığsın.
+  // Ölçüler ekran yüksekliğine göre (vh) ölçeklenir: küçük telefonda da sığar.
   const longestOpt = Math.max(0, ...LETTERS.map((l) => q?.options[l]?.trim().length ?? 0));
-  const optTextCls = longestOpt > 90 ? "text-sm" : longestOpt > 45 ? "text-base" : "text-lg";
-  const optMinH = longestOpt > 90 ? "min-h-[3rem]" : "min-h-[3.5rem]";
+  const optFont =
+    longestOpt > 90
+      ? "clamp(0.7rem, 1.9vh, 0.875rem)"
+      : longestOpt > 45
+        ? "clamp(0.78rem, 2.2vh, 1rem)"
+        : "clamp(0.85rem, 2.5vh, 1.125rem)";
+  const optMinH = "min-h-[clamp(2.25rem,6vh,3.5rem)]";
+  const answerGap = "gap-[clamp(0.4rem,1.1vh,0.625rem)]";
+  const msgH = "h-[clamp(2rem,5.5vh,3rem)]";
 
   return (
     <Shell full>
@@ -253,11 +261,6 @@ function GameView({ code, playerId }: { code: string; playerId: string }) {
         >
           {teamLabel}
         </div>
-        {q && (
-          <div className="shrink-0 rounded-full border-2 border-border bg-panel px-4 py-1.5 text-sm font-extrabold text-foreground shadow-[var(--shadow-panel)]">
-            SORU {q.index} / {q.total}
-          </div>
-        )}
         {data.status === "PAUSED" && (
           <div className="text-sm font-bold text-muted-foreground">DURAKLATILDI</div>
         )}
@@ -268,8 +271,8 @@ function GameView({ code, playerId }: { code: string; playerId: string }) {
           {/* Soru + görsel: kaydırma yok — yazı ne kadar uzun olursa olsun
               otomatik küçülüp tek ekrana sığar (Kahoot gibi) */}
           <div className="flex min-h-0 flex-1 flex-col overflow-hidden pb-1">
-            <p className="mt-2 shrink-0 text-[0.65rem] font-semibold tracking-[0.2em] text-muted-foreground sm:text-xs">
-              SORU {q.index} / {q.total} • {q.category.toUpperCase()}
+            <p className="mt-1 shrink-0 text-[0.65rem] font-semibold tracking-[0.2em] text-muted-foreground sm:text-xs">
+              {q.category.toUpperCase()}
             </p>
             <FitQuestion text={q.question} hasImage={!!q.imageUrl} />
 
