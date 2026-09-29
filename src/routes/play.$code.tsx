@@ -188,7 +188,8 @@ function GameView({ code, playerId }: { code: string; playerId: string }) {
 
   if (!data) return <Shell>Yükleniyor...</Shell>;
 
-  const teamLabel = me ? `TAKIM ${me.team}` : "TAKIM";
+  // Takım etiketi: "TAKIM 1/2" yerine takımın gerçek adı (oyuncunun adı) gösterilir
+  const teamLabel = me ? me.name.toUpperCase() : "TAKIM";
   const teamColor = me?.team === 1 ? "bg-team1" : "bg-team2";
 
   if (data.status === "FINISHED") {
@@ -247,9 +248,16 @@ function GameView({ code, playerId }: { code: string; playerId: string }) {
       {countdown}
       <PreloadImage src={data.nextImageUrl} />
       <div className="mx-auto flex w-full max-w-3xl shrink-0 items-center justify-between gap-3">
-        <div className={`rounded-full ${teamColor} px-4 py-1.5 text-sm font-bold text-panel`}>
+        <div
+          className={`max-w-[60%] truncate rounded-full ${teamColor} px-4 py-1.5 text-sm font-bold text-panel`}
+        >
           {teamLabel}
         </div>
+        {q && (
+          <div className="shrink-0 rounded-full border-2 border-border bg-panel px-4 py-1.5 text-sm font-extrabold text-foreground shadow-[var(--shadow-panel)]">
+            SORU {q.index} / {q.total}
+          </div>
+        )}
         {data.status === "PAUSED" && (
           <div className="text-sm font-bold text-muted-foreground">DURAKLATILDI</div>
         )}
