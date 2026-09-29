@@ -8,6 +8,13 @@
       "when": 1790659992819,
       "tag": "0000_halat_game_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790671767970,
+      "tag": "0001_create_game_schema_safe",
+      "breakpoints": true
     }
   ]
 }
