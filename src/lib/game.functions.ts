@@ -4,7 +4,7 @@ const QUESTION_COUNT = 10;
 const STEP = 10;
 // Bu süre içinde iki takım da doğru bilirse "aynı anda" sayılır: halat yerinde kalır, kimse puan almaz.
 const SAME_TIME_MS = 2000;
-const WAIT_OTHER_MS = 2000;
+const WAIT_OTHER_MS = 600;
 const FIRST_POINTS = 1;
 
 export type RoomStatus = "WAITING" | "READY" | "PLAYING" | "PAUSED" | "FINISHED";

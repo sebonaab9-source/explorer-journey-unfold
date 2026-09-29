@@ -86,7 +86,7 @@ function HostScreen() {
   const [timedOut, setTimedOut] = useState<string | null>(null);
   useEffect(() => {
     if (!firstCorrectAt) return undefined;
-    const wait = Math.max(0, 2000 - (Date.now() - Date.parse(firstCorrectAt)));
+    const wait = Math.max(0, 600 - (Date.now() - Date.parse(firstCorrectAt)));
     const id = setTimeout(() => setTimedOut(firstCorrectAt), wait);
     return () => clearTimeout(id);
   }, [firstCorrectAt]);
